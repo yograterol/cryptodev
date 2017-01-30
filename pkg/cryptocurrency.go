@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"path/filepath"
+	"fmt"
 )
 
 type LastPort struct {
@@ -32,6 +33,7 @@ type Cryptocurrency struct {
 
 func NewCryptocurrency (symbol string) *Cryptocurrency{
 	var c Cryptocurrency
+	fmt.Print(getBinaries())
 	err := db.One("Symbol", symbol, &c)
 	if err != nil {
 		c = Cryptocurrency{}

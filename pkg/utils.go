@@ -9,6 +9,8 @@ import (
 	"log"
 	"path/filepath"
 	"github.com/asdine/storm"
+	"net/http"
+	"encoding/json"
 )
 
 var (
@@ -18,6 +20,19 @@ var (
 	downloadDest string
 	db *storm.DB
 )
+
+type Binary struct {
+	Name		string `json:"name"`
+	Symbol		string `json:"symbol"`
+	Download 	[]Download `json:"download"`
+}
+
+type Download struct {
+	Platform	string `json:"platform"`
+	P64		string `json:"64"`
+	P32		string `json:"32"`
+	PARM		string `json:"arm"`
+}
 
 func init() {
 	homePath := os.Getenv("HOME")
@@ -97,4 +112,24 @@ func ungzip(source, target string) {
 		log.Fatal("There was an error extracting the files.")
 		os.Exit(1)
 	}
+}
+
+func getBinaries() *[]Binary {
+	var netClient = &http.Client{
+		Timeout: time.Second * 10,
+	}
+	response, err := netClient.Get("https://raw.githubusercontent.com/yograterol/cryptodev/master/binaries.json")
+	if err != nil {
+		log.Fatal("Can't download the binaries JSON.")
+		os.Exit(1)
+	}
+	defer response.Body.Close()
+	var r []Binary
+	err = json.NewDecoder(response.Body).Decode(&r)
+	if err != nil {
+		fmt.Println(err)
+		log.Fatal("Can't decode the JSON file.")
+		os.Exit(1)
+	}
+	return &r
 }
