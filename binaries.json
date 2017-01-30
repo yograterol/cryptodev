@@ -1,0 +1,11 @@
+{
+  "btc": {
+    "name": "Bitcoin",
+    "download": {
+      "linux": {
+        "64": "https://bitcoin.org/bin/bitcoin-core-0.13.2/bitcoin-0.13.2-x86_64-linux-gnu.tar.gz",
+        "32": "https://bitcoin.org/bin/bitcoin-core-0.13.2/bitcoin-0.13.2-i686-pc-linux-gnu.tar.gz"
+      }
+    }
+  }
+}

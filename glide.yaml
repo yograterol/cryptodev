@@ -1,0 +1,9 @@
+package: github.com/yograterol/cryptodev
+import:
+- package: github.com/spf13/cobra
+- package: github.com/spf13/viper
+- package: github.com/cavaliercoder/grab
+- package: github.com/asdine/storm
+  version: ^0.7.0
+- package: github.com/boltdb/bolt
+  version: ^1.3.0
